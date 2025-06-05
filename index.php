@@ -84,6 +84,7 @@ if (isset($_GET["minimum_vote"]) && is_numeric($_GET["minimum_vote"]) && $_GET["
                 type="checkbox"
                 name="parking"
                 id="parking"
+                <?php if (isset($_GET["parking"]) && $_GET["parking"] == "on") echo "checked" ?>
             />
             <label for="parking">Parking</label>
 
@@ -96,6 +97,7 @@ if (isset($_GET["minimum_vote"]) && is_numeric($_GET["minimum_vote"]) && $_GET["
                 id="minimum_vote"
                 min="1"
                 max="5"
+                value="<?php echo isset($_GET["minimum_vote"]) ? $_GET['minimum_vote'] : "" ?>"
             />
             <label for="minimum_vote">Minimum Vote</label>
         </div>
