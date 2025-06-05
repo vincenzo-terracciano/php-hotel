@@ -40,11 +40,21 @@ $hotels = [
 
 ];
 
+// controllo filtro parcheggio
 $parking_requested = false;
 
 if(isset($_GET["parking"]) && $_GET["parking"] == "on") {
     $parking_requested = true;
 }
+
+
+// controllo filtro voto
+$minimum_vote = 0;
+
+if (isset($_GET["minimum_vote"]) && is_numeric($_GET["minimum_vote"]) && $_GET["minimum_vote"] >= 0 && $_GET["minimum_vote"] <= 5) {
+    $minimum_vote = (int)$_GET["minimum_vote"];
+}
+
 
 ?>
 
@@ -67,18 +77,32 @@ if(isset($_GET["parking"]) && $_GET["parking"] == "on") {
 
     <form action="">
 
-        <div class="form-check mt-3">
+    <div class="d-flex my-4">
+
+        <div class="form-control">
             <input
-                class="form-check-input"
                 type="checkbox"
                 name="parking"
                 id="parking"
             />
-            <label class="form-check-label" for="parking"> Parking </label>
+            <label for="parking">Parking</label>
 
         </div>
+
+        <div class="form-control">
+            <input
+                type="number"
+                name="minimum_vote"
+                id="minimum_vote"
+                min="1"
+                max="5"
+            />
+            <label for="minimum_vote">Minimum Vote</label>
+        </div>
+
+    </div>
         
-        <button type="submit" class="btn btn-primary mt-4">Filter</button>
+        <button type="submit" class="btn btn-primary">Filter</button>
         
 
     </form>
@@ -105,6 +129,10 @@ if(isset($_GET["parking"]) && $_GET["parking"] == "on") {
                         continue;
 
                     }
+                }
+
+                if ($hotel["vote"] < $minimum_vote) {
+                    continue;
                 }
     
            ?>
