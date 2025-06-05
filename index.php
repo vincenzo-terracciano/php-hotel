@@ -40,6 +40,12 @@ $hotels = [
 
 ];
 
+$parking_requested = false;
+
+if(isset($_GET["parking"]) && $_GET["parking"] == "on") {
+    $parking_requested = true;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +97,15 @@ $hotels = [
            <?php
            
             foreach ($hotels as $hotel) {
+
+                if ($parking_requested) {
+
+                    if(!$hotel["parking"]) {
+
+                        continue;
+
+                    }
+                }
     
            ?>
     
